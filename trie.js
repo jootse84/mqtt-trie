@@ -1,17 +1,7 @@
 export default class Trie {
 
     constructor (trie) {
-        this.trie = {
-          'aa': {
-            'aa': {
-              'cc': {},
-              'bb': {
-                'aa': { '$': true }
-              }
-            }
-          },
-          'coc': { '$': true }
-        }
+        this.trie = trie
     }
     
     addTopic (topic) {
@@ -48,9 +38,9 @@ export default class Trie {
         let level = levels.pop()
         switch (actual) {
         case '+':
-        		for (let key in node) {
+        	for (let key in node) {
                 if (key !== '$') {
-                     node[key] = this.rec(levels, level, trie[key])
+                    node[key] = this.rec(levels, level, trie[key])
                 }
             }
             break;
