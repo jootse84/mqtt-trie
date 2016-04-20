@@ -38,7 +38,7 @@ export default class Trie {
         let level = levels.pop()
         switch (actual) {
         case '+':
-        	for (let key in node) {
+            for (let key in node) {
                 if (key !== '$') {
                     node[key] = this.rec(levels, level, trie[key])
                 }
