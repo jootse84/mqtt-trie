@@ -2,9 +2,24 @@
  * @file Trie class
  * @author Jose E. Martinez <jootse.84@gmail.com>
  * @description A class that saves MQTT topics in a trie structure. The trie structure is represented by an Object which keys contains the topics levels. In addition, the topic levels with the key '$' as 'true' are the completed topics.
+ *
  * @see [Project info]{@link https://jootse84.github.io/notes/create-your-own-MQTT-broker.-part-1}
  * @see [Trie structure]{@link https://en.wikipedia.org/wiki/Trie}
  * @see [MQTT topic]{@link http://www.hivemq.com/blog/mqtt-essentials-part-5-mqtt-topics-best-practices}
+ *
+ * @example
+ * let trie = new Trie()
+ *
+ * trie.saveTopic("aa/cc")
+ * console.log(JSON.stringify(trie.getTrie()))
+ * // Prints {"aa":{"cc":{"$":true}}}
+ *
+ * trie.saveTopic("aa/bb")
+ * trie.saveTopic("bb/cc/dd")
+ * trie.saveTopic("bb/#")
+ * console.log(JSON.stringify(trie.getTrie()))
+ * // Prints {"aa":{"cc":{"$":true},"bb":{"$":true}},"bb":{"cc":{"dd":{"$":true},"$":true},"$":true}}
+ *
  * @version 0.1
  */
 
@@ -20,7 +35,7 @@ export default class Trie {
     /**
      * Save a new topic in the trie
      *
-     * @params {String} topic The topic to be saved
+     * @param {String} topic The topic to be saved
      * @returns {Object} The value of the trie, after new topic saved
      */
     saveTopic (topic) {
@@ -41,8 +56,8 @@ export default class Trie {
     /**
      * Get the current value of the trie
      *
-     * @params {Array} levels List of topic levels to be included
-     * @params {String} actual Actual topic to be included in the trie
+     * @param {Array} levels List of topic levels to be included
+     * @param {String} actual Actual topic to be included in the trie
      * @returns {Object} The current value of the trie
      */
     rec (levels, actual, trie) {
